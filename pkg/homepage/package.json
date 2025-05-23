@@ -1,7 +1,7 @@
 {
-  "name": "top-level-product",
-  "description": "Example extension for a top-level product on Rancher Dashboard",
-  "version": "0.2.2",
+  "name": "homepage",
+  "description": "Example extension that changes the landing home page",
+  "version": "0.4.2",
   "private": false,
   "rancher": {
     "annotations": {
@@ -10,6 +10,7 @@
       "catalog.cattle.io/ui-extensions-version": ">= 3.0.0 < 4.0.0"
     }
   },
+  "icon": "https://raw.githubusercontent.com/rancher/ui-plugin-examples/main/pkg/homepage/homepage.svg",
   "scripts": {
     "dev": "./node_modules/.bin/nuxt dev",
     "nuxt": "./node_modules/.bin/nuxt"
