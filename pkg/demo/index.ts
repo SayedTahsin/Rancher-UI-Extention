@@ -20,7 +20,7 @@ export default function(plugin: IPlugin): void {
   plugin.addTab( 
     TabLocation.RESOURCE_DETAIL,
     { resource: ['namespace'] }, 
-    {
+    { 
       name:       'NewTab',
       weight:     -5,
       tooltip:    'this is a tooltip message',
