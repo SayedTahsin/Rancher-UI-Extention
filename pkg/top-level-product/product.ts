@@ -59,6 +59,19 @@ export function init($plugin:any, store:any) {
       }
     }
   });
+
+  virtualType({
+    name:     'hello',
+    label: 'newpage',
+    weight: '50',
+    route:    {
+      name:   `${ YOUR_PRODUCT_NAME }-c-cluster-hello`,
+      params: {
+        product: YOUR_PRODUCT_NAME,
+        cluster: BLANK_CLUSTER
+      }
+    }
+  });
   // registering the defined pages as side-menu entries
-  basicType([YOUR_K8S_RESOURCE_NAME, CUSTOM_PAGE_NAME]);
+  basicType([YOUR_K8S_RESOURCE_NAME, CUSTOM_PAGE_NAME], 'hello');
 }

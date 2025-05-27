@@ -21,6 +21,15 @@ const routes = [
       cluster: BLANK_CLUSTER
     },
   },
+  {
+    name:      `${ YOUR_PRODUCT_NAME }-c-cluster-hello`,
+    path:      `/${ YOUR_PRODUCT_NAME }/c/:cluster/hello`,
+    component: MyCustomPage,
+    meta:      {
+      product: YOUR_PRODUCT_NAME,
+      cluster: BLANK_CLUSTER
+    },
+  },
   // the following routes cover the "resource page"
   // registering routes for list/edit/create views
   {

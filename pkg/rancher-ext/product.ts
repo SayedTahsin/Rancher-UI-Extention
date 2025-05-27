@@ -1,7 +1,7 @@
 import { IPlugin } from '@shell/core/types';
 
 export function init($plugin: IPlugin, store: any) {
-  const YOUR_PRODUCT_NAME = 'myProductName';
+  const YOUR_PRODUCT_NAME = 'myProductName2';
   const BLANK_CLUSTER = '_';
 
   const { product } = $plugin.DSL(store, YOUR_PRODUCT_NAME);
@@ -9,7 +9,7 @@ export function init($plugin: IPlugin, store: any) {
   product({
     icon: 'gear',
     inStore: 'management',
-    weight: 100,
+    weight: 200,
     to: {
       name: `${YOUR_PRODUCT_NAME}-c-cluster`,
       path: `/${YOUR_PRODUCT_NAME}/c/:cluster/dashboard`,
