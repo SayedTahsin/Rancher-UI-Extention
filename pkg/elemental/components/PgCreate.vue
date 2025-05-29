@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
 import axios from "axios";
- import { useBranding } from '@bytebuilders/ui-modules/src/composables/branding'
+import { useBranding } from "@bytebuilders/ui-modules/src/composables/branding";
 const pgList = ref([]);
 const name = ref("");
 const namespace = ref("");
@@ -10,6 +10,8 @@ const accessMode = ref("ReadWriteOnce");
 const storage = ref("");
 const storageClassName = ref("local-path");
 const version = ref("16.4");
+
+const { fetchBranding } = useBranding();
 
 const generatedObject = computed(() => ({
   apiVersion: "kubedb.com/v1",
@@ -34,21 +36,26 @@ const generatedObject = computed(() => ({
   },
 }));
 
-const handleSubmit = async() => {
-  console.log(generatedObject.value);
+const handleSubmit = async () => {
+  try {
+    const response = await axios.post(
+      `/k8s/clusters/local/apis/kubedb.com/v1/namespaces/${namespace.value}/postgreses`,
+      generatedObject.value
+    );
+
+    console.log(response);
+  } catch (error) {
+    console.error("Error loading data:", error);
+  }
 };
 
 const getPgList = async () => {
   try {
-
-    const response = await axios.get("/k8s/clusters/local/apis/kubedb.com/v1/postgreses");
-
-   await fetch(
+    const response = await axios.get(
       "/k8s/clusters/local/apis/kubedb.com/v1/postgreses"
     );
-    const data = response.data
+    const data = response.data;
     pgList.value = data.items;
-    console.log(pgList.value);
   } catch (error) {
     console.error("Error loading data:", error);
   }

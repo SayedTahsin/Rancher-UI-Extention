@@ -24,6 +24,11 @@
     "@vue/cli-service": "5.0.8",
     "@vue/cli-plugin-typescript": "5.0.8"
   },
+  "dependencies": {
+    "@bytebuilders/ui-modules": "github:appscode-cloud/ui-modules",
+    "@rancher/shell": "^3.0.4",
+    "axios": "^1.9.0"
+  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
