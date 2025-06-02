@@ -10,6 +10,7 @@ const namespace = ref("");
 const deletionPolicy = ref("Delete");
 const accessMode = ref("ReadWriteOnce");
 const storage = ref("");
+const url = ref("");
 const storageClassName = ref("local-path");
 const version = ref("16.4");
 
@@ -37,11 +38,16 @@ const generatedObject = computed(() => ({
   },
 }));
 
+const config = {
+    headers: { Authorization: `Bearer dde29c3d1b8c146d6500594ea83be0e13571adae` }
+};
+
+
 const handleSubmit = async () => {
+  const apiUrl = url.value || '/k8s/clusters/c-pgb8v/api/v1/namespaces/ace/services/ace-platform-api/proxy'
   try {
-    const response = await axios.post(
-      `/k8s/clusters/c-ln4df/apis/kubedb.com/v1/namespaces/${namespace.value}/postgreses`,
-      generatedObject.value
+    const response = await axios.post(apiUrl,
+      config
     );
 
     console.log(response);
@@ -50,13 +56,10 @@ const handleSubmit = async () => {
   }
 };
 
-const config = {
-    headers: { Authorization: `Bearer dde29c3d1b8c146d6500594ea83be0e13571adae` }
-};
 
 const getPgList = async () => {
   // /k8s/clusters/c-pgb8v/api/v1/namespaces/ace/services/ace-platform-api/proxy
-  //     "https://10.2.0.144.sslip.io/k8s/clusters/c-ln4df/api/v1/namespaces/ace/services/ace-platform-api/proxy"
+  //  "https://10.2.0.144.sslip.io/k8s/clusters/c-ln4df/api/v1/namespaces/ace/services/ace-platform-api/proxy"
   
   try {
     const response = await axios.get(
@@ -88,13 +91,17 @@ onMounted(async() => {
 
   <form @submit.prevent="handleSubmit" class="space-y-4">
     <div>
+      <label>url</label>
+      <input v-model="url" type="text" required />
+    </div>
+    <!-- <div>
       <label>Name</label>
-      <input v-model="name" type="text" required />
+      <input v-model="name" type="text"  />
     </div>
 
     <div>
       <label class="block text-sm font-medium">Namespace</label>
-      <input v-model="namespace" type="text" required />
+      <input v-model="namespace" type="text"  />
     </div>
 
     <div>
@@ -113,7 +120,7 @@ onMounted(async() => {
 
     <div>
       <label>Storage (e.g., 1Gi)</label>
-      <input v-model="storage" type="text" required />
+      <input v-model="storage" type="text"  />
     </div>
 
     <div>
@@ -128,13 +135,13 @@ onMounted(async() => {
       <select v-model="version">
         <option value="16.4">16.4</option>
       </select>
-    </div>
+    </div> -->
 
     <button type="submit">Submit</button>
 
-    <div>
+    <!-- <div>
       Payload
       <pre>{{ generatedObject }}</pre>
-    </div>
+    </div> -->
   </form>
 </template>
