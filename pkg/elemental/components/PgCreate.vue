@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
 import axios from "axios";
+import { useStore } from 'vuex'
 import { useBranding } from "@bytebuilders/ui-modules/src/composables/branding";
 const pgList = ref([]);
 const name = ref("");
@@ -39,7 +40,7 @@ const generatedObject = computed(() => ({
 const handleSubmit = async () => {
   try {
     const response = await axios.post(
-      `/k8s/clusters/local/apis/kubedb.com/v1/namespaces/${namespace.value}/postgreses`,
+      `/k8s/clusters/c-pgb8v/apis/kubedb.com/v1/namespaces/${namespace.value}/postgreses`,
       generatedObject.value
     );
 
@@ -52,7 +53,7 @@ const handleSubmit = async () => {
 const getPgList = async () => {
   try {
     const response = await axios.get(
-      "/k8s/clusters/local/apis/kubedb.com/v1/postgreses"
+      "/k8s/clusters/c-pgb8v/apis/kubedb.com/v1/postgreses"
     );
     const data = response.data;
     pgList.value = data.items;
@@ -61,8 +62,12 @@ const getPgList = async () => {
   }
 };
 
-onMounted(() => {
+const store = useStore()
+onMounted(async() => {
+  const result = await store.dispatch('management/findAll', { type: 'management.cattle.io.cluster' })
+  console.log(result)
   getPgList();
+  fetchBranding()
 });
 </script>
 <template>
