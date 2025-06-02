@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
 import axios from "axios";
+// import $axios from '@bytebuilders/ui-modules/src/plugins/axios'
 import { useStore } from 'vuex'
-import { useBranding } from "@bytebuilders/ui-modules/src/composables/branding";
-const pgList = ref([]);
+
+const pgList = ref<Array<{metadata: {name: string, namespace: string}, spec: Record<string, any>}>>([]);
 const name = ref("");
 const namespace = ref("");
 const deletionPolicy = ref("Delete");
@@ -12,7 +13,6 @@ const storage = ref("");
 const storageClassName = ref("local-path");
 const version = ref("16.4");
 
-const { fetchBranding } = useBranding();
 
 const generatedObject = computed(() => ({
   apiVersion: "kubedb.com/v1",
@@ -40,7 +40,7 @@ const generatedObject = computed(() => ({
 const handleSubmit = async () => {
   try {
     const response = await axios.post(
-      `/k8s/clusters/c-pgb8v/apis/kubedb.com/v1/namespaces/${namespace.value}/postgreses`,
+      `/k8s/clusters/c-ln4df/apis/kubedb.com/v1/namespaces/${namespace.value}/postgreses`,
       generatedObject.value
     );
 
@@ -50,11 +50,18 @@ const handleSubmit = async () => {
   }
 };
 
+const config = {
+    headers: { Authorization: `Bearer dde29c3d1b8c146d6500594ea83be0e13571adae` }
+};
+
 const getPgList = async () => {
+  // /k8s/clusters/c-pgb8v/api/v1/namespaces/ace/services/ace-platform-api/proxy
+  //     "https://10.2.0.144.sslip.io/k8s/clusters/c-ln4df/api/v1/namespaces/ace/services/ace-platform-api/proxy"
+  
   try {
     const response = await axios.get(
-      "/k8s/clusters/c-pgb8v/apis/kubedb.com/v1/postgreses"
-    );
+      "/k8s/clusters/c-pgb8v/api/v1/namespaces/ace/services/ace-platform-api/proxy",
+      config);
     const data = response.data;
     pgList.value = data.items;
   } catch (error) {
@@ -67,7 +74,6 @@ onMounted(async() => {
   const result = await store.dispatch('management/findAll', { type: 'management.cattle.io.cluster' })
   console.log(result)
   getPgList();
-  fetchBranding()
 });
 </script>
 <template>
