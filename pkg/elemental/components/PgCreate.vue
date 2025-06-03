@@ -46,7 +46,7 @@ const config = {
 const handleSubmit = async () => {
   const apiUrl = url.value || '/k8s/clusters/c-pgb8v/api/v1/namespaces/ace/services/ace-platform-api/proxy'
   try {
-    const response = await axios.post(apiUrl,
+    const response = await axios.get(apiUrl,
       config
     );
 
@@ -73,14 +73,27 @@ const getPgList = async () => {
 };
 
 const store = useStore()
+
+const myData = computed(() => store.getters['my-extension/myData']);
+const loading = computed(() => store.getters['my-extension/isLoading']);
+
+
 onMounted(async() => {
+
+  store.dispatch('my-extension/fetchMyData');
+
   const result = await store.dispatch('management/findAll', { type: 'management.cattle.io.cluster' })
   console.log(result)
   getPgList();
 });
+
+
+const loadData = () => {
+  store.dispatch('my-extension/fetchMyData');
+};
+
 </script>
 <template>
-  Existing PG Instances
   <div>
     <pre v-for="pg in pgList"
       >{{ pg.metadata?.name }}/{{ pg.metadata?.namespace }}: {{
@@ -144,4 +157,11 @@ onMounted(async() => {
       <pre>{{ generatedObject }}</pre>
     </div> -->
   </form>
+
+
+    <div>
+    <button @click="loadData">Load Data</button>
+    <div v-if="loading">Loading...</div>
+    <pre>{{ myData }}</pre>
+  </div>
 </template>

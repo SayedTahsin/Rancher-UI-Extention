@@ -2,6 +2,7 @@ import { importTypes } from '@rancher/auto-import';
 import { IPlugin } from '@shell/core/types';
 import elementalRouting from './routing/elemental-routing';
 import elementalStore from './store/elemental-store';
+import myDataStore from './store/mydata'
 
 // Init the package
 export default function($plugin: IPlugin) {
@@ -16,6 +17,7 @@ export default function($plugin: IPlugin) {
 
   // Add Vuex store
   $plugin.addDashboardStore(elementalStore.config.namespace, elementalStore.specifics, elementalStore.config);
+  $plugin.addDashboardStore(myDataStore.config.namespace, myDataStore.specifics, myDataStore.config);
 
   // Add Vue Routes
   $plugin.addRoutes(elementalRouting);
