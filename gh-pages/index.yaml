@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  my-chart:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2025-06-03T15:22:31.73028359+06:00"
+    description: A Helm chart for Kubernetes
+    digest: e5447c0fdc14049f80cac34b685d8b5bae174e1c59be9a7bf5e695663a85de29
+    name: my-chart
+    type: application
+    urls:
+    - https://sayedtahsin.github.io/Rancher-UI-Extention/my-chart-0.1.0.tgz
+    version: 0.1.0
+generated: "2025-06-03T15:22:31.72971521+06:00"
