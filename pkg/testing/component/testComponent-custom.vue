@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import LabeledInput from "../assets/components/Form/LabeledInput/LabeledInput.vue";
+import LabeledSelect from "../assets/components/Form/LabeledSelect/LabeledSelect.vue";
 import { computed, onMounted, ref } from "vue";
 import { useStore } from "vuex";
 
@@ -13,6 +14,14 @@ onMounted(() => {
 });
 
 const name = ref("");
+const namespace = ref('')
+
+const options = ref([{label: 'demo', value: 'demo'}, {label: 'default', value: 'default'}])
+
+const selectNamespace = (e: string)=>{
+  console.log(e)
+}
+
 </script>
 
 <template>
@@ -31,16 +40,20 @@ const name = ref("");
       />
     </div>
 
-    <div class="col span-6">
-      <LabeledInput
-        ref="nameInput2"
-        key="name2"
-        v-model:value="name"
-        label="NameLabel 2"
-        placeholder="Type your name"
+     <div
+      class="col span-6"
+    >
+      <LabeledSelect
+        v-model:value="namespace"
+        :clearable="true"
+        :options="options"
         :disabled="false"
-        :min-height="30"
-        :required="true"
+        :searchable="true"
+        :multiple="false"
+        label="NamespaceLabel"
+        placeholder="Select Namespace"
+        required
+        @selecting="selectNamespace"
       />
     </div>
   </div>
