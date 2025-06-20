@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
 import axios from "axios";
-// import $axios from '@bytebuilders/ui-modules/src/plugins/axios'
 import { useStore } from 'vuex'
 
 const pgList = ref<Array<{metadata: {name: string, namespace: string}, spec: Record<string, any>}>>([]);

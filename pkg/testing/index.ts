@@ -1,7 +1,7 @@
-import { importTypes } from '@rancher/auto-import';
-import { IPlugin } from '@shell/core/types';
-import extensionRouting from './routing/test-routing';
-import userStore from './store/user-store';
+import { importTypes } from "@rancher/auto-import";
+import { IPlugin } from "@shell/core/types";
+import extensionRouting from "./routing/test-routing";
+import userStore from "./store/user-store";
 
 // Init the package
 export default function (plugin: IPlugin) {
@@ -10,15 +10,17 @@ export default function (plugin: IPlugin) {
 
   // Provide extension metadata from package.json
   // it will grab information such as `name` and `description`
-  plugin.metadata = require('./package.json');
+  plugin.metadata = require("./package.json");
 
   // Load a product
-  plugin.addProduct(require('./testing-config'));
+  plugin.addProduct(require("./testing-config"));
 
-
-// Add Vuex store
-plugin.addDashboardStore(userStore.config.namespace, userStore.specifics, userStore.config);
-  
+  // Add Vuex store
+  plugin.addDashboardStore(
+    userStore.config.namespace,
+    userStore.specifics,
+    userStore.config
+  );
 
   // Add Vue Routes
   plugin.addRoutes(extensionRouting);
